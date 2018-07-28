@@ -2,13 +2,17 @@ package models
 
 import java.time.ZonedDateTime
 
-import scalikejdbc._, jsr310._ // java.time.ZonedDateTimeを利用するため、jsr310は手動でインポートしてください。
+import scalikejdbc._, jsr310._
 import skinny.orm._
 
 /**
   * Message
   */
-case class Message(id: Option[Long], body: String, createAt: ZonedDateTime, updateAt: ZonedDateTime)
+case class Message(id: Option[Long],
+                   title: Option[String], // 追加
+                   body: String,
+                   createAt: ZonedDateTime,
+                   updateAt: ZonedDateTime)
 
 object Message extends SkinnyCRUDMapper[Message] {
 
@@ -20,6 +24,7 @@ object Message extends SkinnyCRUDMapper[Message] {
     autoConstruct(rs, n)
 
   private def toNamedValues(record: Message): Seq[(Symbol, Any)] = Seq(
+    'title    -> record.title,
     'body     -> record.body,
     'createAt -> record.createAt,
     'updateAt -> record.updateAt
