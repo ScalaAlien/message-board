@@ -6,4 +6,4 @@ target
 /.project
 /.settings
 /RUNNING_PID
-env/ # 追加
+env/
